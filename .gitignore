@@ -1,5 +1,6 @@
 app-desafio1/node_modules
 app-desafio2/node_modules
+app-desafio3/node_modules
 .expo/
 dist/
 npm-debug.*
