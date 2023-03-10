@@ -44,13 +44,6 @@ export default function App() {
             setConfirmSelectDateScreen(false);
       };
 
-      useEffect(() => {
-            console.log('datefo', dateForm);
-            console.log('asd', dates);
-      }, [dateForm]);
-      useEffect(() => {
-            console.log(dates);
-      }, [dates]);
       if (!fontsLoaded) {
             return null;
       }
