@@ -8,18 +8,17 @@ export const signUp = (email, password) => {
                         type: 'SIGN_UP_START',
                   });
                   console.log(email, password);
-                  let body = {
-                        email,
-                        password,
-                        returnSecureToken: true,
-                  };
-                  console.log(body);
-                  const response = await fetch(URL_AUTH_SIGN_UP, {
+                  body = {};
+                  const response = await fetch(SIGN_UP_URL, {
                         method: 'POST',
                         headers: {
                               'Content-Type': 'application/json',
                         },
-                        body,
+                        body: {
+                              email,
+                              password,
+                              returnSecureToken: true,
+                        },
                   });
                   console.log(response.body);
                   /*  if (!response.ok) {
