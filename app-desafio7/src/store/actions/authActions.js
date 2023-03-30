@@ -21,7 +21,7 @@ export const signUp = (email, password) => {
                         }),
                   });
                   console.log(response.body);
-                  /*  if (!response.ok) {
+                  if (!response.ok) {
                         const errorResData = await response.json();
                         const errorId = errorResData.error.message;
                         let message = 'No se pudo registrar!';
@@ -30,10 +30,10 @@ export const signUp = (email, password) => {
                               message = 'Este email ya existe!';
                         }
                         throw new Error(message);
-                  } */
+                  }
 
                   const data = await response.json();
-                  console.log(data.error.errors);
+
                   console.log(data);
 
                   dispatch({
