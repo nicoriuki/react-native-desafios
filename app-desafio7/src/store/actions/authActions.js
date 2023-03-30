@@ -14,11 +14,11 @@ export const signUp = (email, password) => {
                         headers: {
                               'Content-Type': 'application/json',
                         },
-                        body: {
+                        body: JSON.stringify({
                               email,
                               password,
                               returnSecureToken: true,
-                        },
+                        }),
                   });
                   console.log(response.body);
                   /*  if (!response.ok) {
