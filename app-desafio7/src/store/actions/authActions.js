@@ -9,7 +9,7 @@ export const signUp = (email, password) => {
                   });
                   console.log(email, password);
                   body = {};
-                  const response = await fetch(SIGN_UP_URL, {
+                  const response = await fetch(URL_AUTH_SIGN_UP, {
                         method: 'POST',
                         headers: {
                               'Content-Type': 'application/json',
