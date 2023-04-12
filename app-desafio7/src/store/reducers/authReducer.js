@@ -13,7 +13,7 @@ const authReducer = (state = initalState, action) => {
                         ...state,
                         isLoading: true,
                   };
-            case SIGN_UP:
+            case 'SIGN_UP':
                   return {
                         ...state,
                         token: action.token,

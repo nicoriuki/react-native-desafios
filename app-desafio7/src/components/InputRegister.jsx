@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, TextInput } from 'react-native';
-import React, { useReducer } from 'react';
+import { useReducer, useEffect } from 'react';
 
 const INPUT_CHANGE = 'INPUT_CHANGE';
 const INPUT_BLUR = 'INPUT_BLUR';
@@ -42,7 +42,7 @@ const InputRegister = ({
             touched: false,
       });
 
-      React.useEffect(() => {
+      useEffect(() => {
             if (inputState.touched) {
                   onInputChange(id, inputState.value, inputState.isValid);
             }

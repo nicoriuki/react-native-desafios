@@ -3,6 +3,7 @@ app-desafio2/node_modules
 app-desafio3/node_modules
 app-desafio4/node_modules
 app-desafio5/node_modules
+app-desafio7/node_modules
 .expo/
 dist/
 npm-debug.*

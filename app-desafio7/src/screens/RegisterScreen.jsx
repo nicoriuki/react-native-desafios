@@ -6,11 +6,12 @@ import {
       TouchableOpacity,
       TextInput,
 } from 'react-native';
-import React, { useEffect } from 'react';
+import { useCallback, useEffect, useReducer, useState } from 'react';
 import colors from '../CONSTANTS/colors';
 import { useDispatch, useSelector } from 'react-redux';
-import { signUp } from '../store/actions/authActions';
+import { signIn, signUp } from '../store/actions/authActions';
 import InputRegister from './../components/InputRegister';
+import { setUser } from '../store/actions/userActions';
 
 const FORM_INPUT_UPDATE = 'FORM_INPUT_UPDATE';
 
@@ -40,11 +41,13 @@ const formReducer = (state, action) => {
 const RegisterScreen = () => {
       const dispatch = useDispatch();
       const isAuthLoading = useSelector((state) => state.auth.isLoading);
-
-      const [formState, dispatchFormState] = React.useReducer(formReducer, {
+      const [loginScreen, setLoginScreen] = useState(false);
+      const [formState, dispatchFormState] = useReducer(formReducer, {
             inputValues: {
                   email: '',
                   password: '',
+                  nombre: '',
+                  telefono: '',
             },
             inputValidities: {
                   email: true,
@@ -52,17 +55,32 @@ const RegisterScreen = () => {
             },
             formIsValid: false,
       });
-
-      const onHandleRegister = () => {
+      const register = () => {
+            let user = {
+                  email: formState.inputValues.email,
+                  nombre: formState.inputValues.nombre,
+                  telefono: formState.inputValues.telefono,
+            };
             dispatch(
                   signUp(
                         formState.inputValues.email,
                         formState.inputValues.password
                   )
             );
+            dispatch(setUser(user));
+      };
+      const onHandleRegister = () => {
+            !loginScreen
+                  ? register()
+                  : dispatch(
+                          signIn(
+                                formState.inputValues.email,
+                                formState.inputValues.password
+                          )
+                    );
       };
 
-      const handleChangedText = React.useCallback(
+      const handleChangedText = useCallback(
             (inputIdentifier, inputValue, inputValidity) => {
                   dispatchFormState({
                         type: FORM_INPUT_UPDATE,
@@ -73,8 +91,12 @@ const RegisterScreen = () => {
             },
             [dispatchFormState]
       );
+      const onHandleScreen = () => {
+            !loginScreen ? setLoginScreen(true) : setLoginScreen(false);
+      };
       useEffect(() => {
             console.log(formState.inputValues.email);
+            console.log(formState.inputValues.password);
       }, [formState]);
 
       return (
@@ -98,9 +120,11 @@ const RegisterScreen = () => {
                                     keyboardType="email-address"
                               />
                               <InputRegister
-                                    initialValue={formState.inputValues.email}
+                                    initialValue={
+                                          formState.inputValues.password
+                                    }
                                     initiallyValid={
-                                          formState.inputValidities.email
+                                          formState.inputValidities.password
                                     }
                                     onInputChange={handleChangedText}
                                     id="password"
@@ -112,6 +136,38 @@ const RegisterScreen = () => {
                                     keyboardType="email-address"
                                     secureTextEntry
                               />
+                              {!loginScreen && (
+                                    <InputRegister
+                                          initialValue={
+                                                formState.inputValues.nombre
+                                          }
+                                          onInputChange={handleChangedText}
+                                          id="nombre"
+                                          required
+                                          minLength={5}
+                                          label="Nombre"
+                                          errorText="Por favor, ingrese un nombre válido"
+                                          autoCapitalize="none"
+                                          keyboardType="email-address"
+                                          secureTextEntry
+                                    />
+                              )}
+                              {!loginScreen && (
+                                    <InputRegister
+                                          initialValue={
+                                                formState.inputValues.telefono
+                                          }
+                                          onInputChange={handleChangedText}
+                                          id="telefono"
+                                          required
+                                          minLength={5}
+                                          label="Telefono"
+                                          errorText="Por favor, ingrese un Telefono válido"
+                                          autoCapitalize="none"
+                                          keyboardType="email-address"
+                                          secureTextEntry
+                                    />
+                              )}
                               <TouchableOpacity
                                     style={styles.loginButton}
                                     onPress={onHandleRegister}
@@ -119,17 +175,23 @@ const RegisterScreen = () => {
                                     <Text style={styles.loginButtonText}>
                                           {isAuthLoading
                                                 ? 'Loading...'
-                                                : 'Registrarse'}
+                                                : !loginScreen
+                                                ? 'Registrarse'
+                                                : 'Iniciar Sesion'}
                                     </Text>
                               </TouchableOpacity>
                         </View>
                         <View style={styles.prompt}>
                               <Text style={styles.promptMessage}>
-                                    ¿Ya tienes una cuenta?
+                                    {loginScreen
+                                          ? 'No tenes un usuario '
+                                          : '¿Ya tienes una cuenta?'}
                               </Text>
-                              <TouchableOpacity>
+                              <TouchableOpacity onPress={onHandleScreen}>
                                     <Text style={styles.promptButton}>
-                                          Iniciar sesión
+                                          {loginScreen
+                                                ? 'Registrarse'
+                                                : 'Iniciar sesión?'}
                                     </Text>
                               </TouchableOpacity>
                         </View>

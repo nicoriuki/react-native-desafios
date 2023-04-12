@@ -7,13 +7,7 @@ import { getPatient } from '../../store/actions/patientsActions';
 const PatientsList = () => {
       const dispatch = useDispatch();
       const patients = useSelector((state) => state.patients.list);
-      useEffect(() => {
-            dispatch(getPatient());
-      }, []);
 
-      useEffect(() => {
-            console.log('aca', patients);
-      }, [patients]);
       return (
             <FlatList
                   data={patients}

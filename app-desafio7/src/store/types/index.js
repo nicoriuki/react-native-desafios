@@ -14,3 +14,9 @@ export const SETPATIENT = 'SETPATIENT';
 export const GETPATIENT = 'GETPATIENT';
 export const EDITPATIENT = 'EDITPATIENT';
 export const DELPATIENT = 'DELPATIENT';
+//Usuarios
+export const ALLUSERS = 'ALLUSERS';
+export const SETUSER = 'SETUSER';
+export const GETUSER = 'GETUSER';
+export const EDITUSER = 'EDITUSER';
+export const DELUSER = 'DELUSER';

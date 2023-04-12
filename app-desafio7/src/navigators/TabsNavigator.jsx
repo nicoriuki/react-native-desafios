@@ -7,6 +7,7 @@ import DateNavigator from './DateNavigator';
 import DatesNavigator from './DatesNavigator';
 import PatientsNavigator from './PatientsNavigator';
 import { styles } from '../styles/style';
+import CamaraNavigator from './CamaraNavigator';
 
 const BottomTabs = createBottomTabNavigator();
 
@@ -98,6 +99,34 @@ const TabsNavigator = () => {
                                                 }}
                                           >
                                                 Citas
+                                          </Text>
+                                    </View>
+                              ),
+                        }}
+                  />
+                  <BottomTabs.Screen
+                        name="foto"
+                        component={CamaraNavigator}
+                        options={{
+                              tabBarIcon: ({ focused }) => (
+                                    <View style={styles.tabBarIcon}>
+                                          <Ionicons
+                                                name="ios-camera"
+                                                size={24}
+                                                color={
+                                                      focused
+                                                            ? '#7F5DF0'
+                                                            : '#748C94'
+                                                }
+                                          />
+                                          <Text
+                                                style={{
+                                                      color: focused
+                                                            ? '#7F5DF0'
+                                                            : '#748C94',
+                                                }}
+                                          >
+                                                Foto
                                           </Text>
                                     </View>
                               ),

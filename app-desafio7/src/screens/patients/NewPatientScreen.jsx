@@ -3,19 +3,20 @@ import { styles } from '../../styles/style';
 import { useSelector, useDispatch } from 'react-redux';
 import { Button, Input, Card } from './../../components';
 import { useState, useEffect } from 'react';
-import { setPatients } from '../../store/actions/patientsActions';
+import { getPatient, setPatients } from '../../store/actions/patientsActions';
 let patientInitialState = {
       nombre: '',
       email: '',
       telefono: '',
+      user: '',
 };
 const NewPatientScreen = ({ navigation }) => {
       const patients = useSelector((state) => state.patients);
       const [patient, setPatient] = useState(patientInitialState);
       const [confirmedNombre, setConfirmedNombre] = useState(false);
-      useEffect(() => {
+      /*  useEffect(() => {
             console.log(patient);
-      }, [patient]);
+      }, [patient]); */
 
       const dispatch = useDispatch();
       const setNombre = (text) => {
